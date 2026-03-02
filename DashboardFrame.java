@@ -56,6 +56,27 @@ public class DashboardFrame extends JFrame {
         dueBtn.addActionListener(e -> new DueListFrame());
         exitBtn.addActionListener(e -> System.exit(0));
 
+        // Stats Panel
+JPanel statsPanel = new JPanel();
+statsPanel.setLayout(new GridLayout(2, 2, 10, 10));
+statsPanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
+
+JLabel totalMembersLabel = new JLabel();
+JLabel todayAttendanceLabel = new JLabel();
+JLabel totalRevenueLabel = new JLabel();
+JLabel totalDueLabel = new JLabel();
+
+statsPanel.add(totalMembersLabel);
+statsPanel.add(todayAttendanceLabel);
+statsPanel.add(totalRevenueLabel);
+statsPanel.add(totalDueLabel);
+
+mainPanel.add(statsPanel, BorderLayout.SOUTH);
+
+// Load values
+loadDashboardStats(totalMembersLabel, todayAttendanceLabel,
+                   totalRevenueLabel, totalDueLabel);
+
         setVisible(true);
     }
 
