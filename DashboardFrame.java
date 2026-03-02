@@ -44,8 +44,15 @@ public class DashboardFrame extends JFrame {
 
         paymentBtn.addActionListener(e -> new PaymentFrame());
 
+
+        JButton dueBtn = new JButton("View Pending Dues");
+        dueBtn.setBounds(120, 300, 170, 30);
+        add(dueBtn);
+
+        dueBtn.addActionListener(e -> new DueListFrame());
+
         JButton exitBtn = new JButton("Exit");
-        exitBtn.setBounds(120, 310, 150, 30);
+        exitBtn.setBounds(120, 350, 150, 30);
         add(exitBtn);
 
         exitBtn.addActionListener(e -> System.exit(0));
