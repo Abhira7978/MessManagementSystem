@@ -16,6 +16,7 @@ public class Main {
     MemberService memberService = new MemberService();
     AttendanceService attendanceService = new AttendanceService();
     BillingService billingService = new BillingService();
+    
 
     while (true) {
         System.out.println("\n===== MESS MANAGEMENT SYSTEM =====");

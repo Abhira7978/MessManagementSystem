@@ -1,5 +1,9 @@
 import java.sql.*;
 import java.util.Scanner;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+import java.io.FileOutputStream;
+
 
 public class BillingService {
 
@@ -53,6 +57,7 @@ public class BillingService {
                 System.out.println("Dinner Count: " + dinner);
                 System.out.println("Present Days: " + present);
                 System.out.println("Total Amount: ₹" + total);
+                generatePDFBill(memberId, month, total);
 
                 String insertPayment = """
                         INSERT INTO payments (member_id, month, total_amount, paid_amount, due_amount)
@@ -173,6 +178,32 @@ public void showPendingDues() {
         }
 
         con.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+public void generatePDFBill(int memberId, String month, double total) {
+
+    try {
+
+        Document document = new Document();
+        PdfWriter.getInstance(document,
+                new FileOutputStream("Bill_" + memberId + "_" + month + ".pdf"));
+
+        document.open();
+
+        document.add(new Paragraph("Khana Khazana Mess"));
+        document.add(new Paragraph("-----------------------------"));
+        document.add(new Paragraph("Member ID: " + memberId));
+        document.add(new Paragraph("Month: " + month));
+        document.add(new Paragraph("Total Amount: ₹" + total));
+        document.add(new Paragraph("-----------------------------"));
+        document.add(new Paragraph("Thank You!"));
+
+        document.close();
+
+        System.out.println("PDF Bill Generated Successfully!");
+
     } catch (Exception e) {
         e.printStackTrace();
     }
