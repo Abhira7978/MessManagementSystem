@@ -31,8 +31,15 @@ public class DashboardFrame extends JFrame {
 
         attendanceBtn.addActionListener(e -> new AttendanceFrame());
 
+
+        JButton billingBtn = new JButton("Generate Bill");
+        billingBtn.setBounds(120, 220, 150, 30);
+        add(billingBtn);
+
+        billingBtn.addActionListener(e -> new BillingFrame());
+
         JButton exitBtn = new JButton("Exit");
-        exitBtn.setBounds(120, 230, 150, 30);
+        exitBtn.setBounds(120, 270, 150, 30);
         add(exitBtn);
 
         exitBtn.addActionListener(e -> System.exit(0));
