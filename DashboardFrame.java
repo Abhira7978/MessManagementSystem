@@ -35,6 +35,8 @@ public class DashboardFrame extends JFrame {
         JButton dueBtn = new JButton("View Pending Dues");
         JButton backupBtn = new JButton("Backup Database");
         JButton chartBtn = new JButton("Revenue Chart");
+        JButton transactionBtn = new JButton("All Transactions");
+
         JButton exitBtn = new JButton("Exit");
 
         buttonPanel.add(addMemberBtn);
@@ -45,6 +47,7 @@ public class DashboardFrame extends JFrame {
         buttonPanel.add(dueBtn);
         buttonPanel.add(backupBtn);
         buttonPanel.add(chartBtn);
+        buttonPanel.add(transactionBtn);
         buttonPanel.add(exitBtn);
 
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
@@ -60,6 +63,7 @@ public class DashboardFrame extends JFrame {
         dueBtn.addActionListener(e -> new DueListFrame());
         backupBtn.addActionListener(e -> backupDatabase());
         chartBtn.addActionListener(e -> new RevenueChartFrame());
+        transactionBtn.addActionListener(e -> new TransactionFrame());
         exitBtn.addActionListener(e -> System.exit(0));
 
         // Stats Panel
