@@ -17,7 +17,10 @@ public class Main {
             System.out.println("4. Delete Member");
             System.out.println("5. Mark Attendance");
             System.out.println("6.Generate Monthly bill");
-            System.out.println("7. Exit");
+            System.out.println("7. View Payments");
+            System.out.println("8. Update Payment");
+            System.out.println("9. Show Pending Dues");
+            System.out.println("10. Exit");
             System.out.print("Choose Option: ");
 
             int choice = sc.nextInt();
@@ -43,6 +46,18 @@ public class Main {
                     billingService.generateMonthlyBill();
                     break;
                 case 7:
+                    billingService.viewPayments();
+                    break;
+
+                case 8:
+                    billingService.updatePayment();
+                    break;
+
+                case 9:
+                    billingService.showPendingDues();
+                    break;
+
+                case 10:
                     System.exit(0);
                 default:
                     System.out.println("Invalid Option!");

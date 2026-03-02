@@ -76,4 +76,105 @@ public class BillingService {
             e.printStackTrace();
         }
     }
+    public void viewPayments() {
+    try {
+        Connection con = DBconnection.getConnection();
+
+        String query = "SELECT * FROM payments";
+        PreparedStatement ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        System.out.println("\n--- Payment Records ---");
+
+        while (rs.next()) {
+            System.out.println(
+                "Member ID: " + rs.getInt("member_id") +
+                " | Month: " + rs.getString("month") +
+                " | Total: ₹" + rs.getDouble("total_amount") +
+                " | Paid: ₹" + rs.getDouble("paid_amount") +
+                " | Due: ₹" + rs.getDouble("due_amount")
+            );
+        }
+
+        con.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+public void updatePayment() {
+    try {
+        Connection con = DBconnection.getConnection();
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Member ID: ");
+        int memberId = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter Month (YYYY-MM): ");
+        String month = sc.nextLine();
+
+        System.out.print("Enter Paid Amount: ");
+        double paid = sc.nextDouble();
+
+        String query = "SELECT total_amount, paid_amount FROM payments WHERE member_id=? AND month=?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, memberId);
+        ps.setString(2, month);
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+
+            double total = rs.getDouble("total_amount");
+            double alreadyPaid = rs.getDouble("paid_amount");
+
+            double newPaid = alreadyPaid + paid;
+            double due = total - newPaid;
+
+            String updateQuery = "UPDATE payments SET paid_amount=?, due_amount=? WHERE member_id=? AND month=?";
+            PreparedStatement ps2 = con.prepareStatement(updateQuery);
+
+            ps2.setDouble(1, newPaid);
+            ps2.setDouble(2, due);
+            ps2.setInt(3, memberId);
+            ps2.setString(4, month);
+
+            ps2.executeUpdate();
+
+            System.out.println("Payment Updated Successfully!");
+            System.out.println("Remaining Due: ₹" + due);
+        } else {
+            System.out.println("No Bill Found!");
+        }
+
+        con.close();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+public void showPendingDues() {
+    try {
+        Connection con = DBconnection.getConnection();
+
+        String query = "SELECT * FROM payments WHERE due_amount > 0";
+        PreparedStatement ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        System.out.println("\n--- Pending Dues ---");
+
+        while (rs.next()) {
+            System.out.println(
+                "Member ID: " + rs.getInt("member_id") +
+                " | Month: " + rs.getString("month") +
+                " | Due: ₹" + rs.getDouble("due_amount")
+            );
+        }
+
+        con.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 }
