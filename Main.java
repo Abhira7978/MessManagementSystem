@@ -6,6 +6,7 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         MemberService memberService = new MemberService();
+        AttendanceService attendanceService = new AttendanceService();
 
         while (true) {
             System.out.println("\n===== MESS MANAGEMENT SYSTEM =====");
@@ -13,7 +14,8 @@ public class Main {
             System.out.println("2. View Members");
             System.out.println("3. Update Member");
             System.out.println("4. Delete Member");
-            System.out.println("5. Exit");
+            System.out.println("5. Mark Attendance");
+            System.out.println("6. Exit");
             System.out.print("Choose Option: ");
 
             int choice = sc.nextInt();
@@ -33,6 +35,9 @@ public class Main {
                     memberService.deleteMember();
                     break;
                 case 5:
+                    attendanceService.markAttendance();
+                    break;
+                case 6:
                     System.exit(0);
                 default:
                     System.out.println("Invalid Option!");
