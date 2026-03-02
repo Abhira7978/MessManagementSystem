@@ -123,4 +123,22 @@ public class MemberService {
             e.printStackTrace();
         }
     }
+    public void addMemberFromGUI(String name, String room, String phone) {
+    try {
+        Connection con = DBconnection.getConnection();
+
+        String query = "INSERT INTO members (name, room_no, phone, join_date) VALUES (?, ?, ?, CURDATE())";
+        PreparedStatement ps = con.prepareStatement(query);
+
+        ps.setString(1, name);
+        ps.setString(2, room);
+        ps.setString(3, phone);
+
+        ps.executeUpdate();
+        con.close();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 }

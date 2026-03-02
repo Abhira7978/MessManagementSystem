@@ -15,6 +15,7 @@ public class DashboardFrame extends JFrame {
         add(label);
 
         JButton addMemberBtn = new JButton("Add Member");
+        addMemberBtn.addActionListener(e -> new AddMemberFrame());
         addMemberBtn.setBounds(120, 100, 150, 30);
         add(addMemberBtn);
 
