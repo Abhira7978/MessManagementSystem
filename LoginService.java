@@ -37,4 +37,24 @@ public class LoginService {
             return false;
         }
     }
+    public boolean validateLogin(String username, String password) {
+
+    try {
+        Connection con = DBconnection.getConnection();
+
+        String query = "SELECT * FROM admin WHERE username=? AND password=SHA2(?,256)";
+        PreparedStatement ps = con.prepareStatement(query);
+
+        ps.setString(1, username);
+        ps.setString(2, password);
+
+        ResultSet rs = ps.executeQuery();
+
+        return rs.next();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+}
 }

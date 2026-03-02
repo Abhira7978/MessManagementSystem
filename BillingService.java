@@ -186,23 +186,54 @@ public void generatePDFBill(int memberId, String month, double total) {
 
     try {
 
+        Connection con = DBconnection.getConnection();
+
+        String memberQuery = "SELECT name, room_no FROM members WHERE member_id=?";
+        PreparedStatement ps = con.prepareStatement(memberQuery);
+        ps.setInt(1, memberId);
+        ResultSet rs = ps.executeQuery();
+
+        String name = "";
+        String room = "";
+
+        if (rs.next()) {
+            name = rs.getString("name");
+            room = rs.getString("room_no");
+        }
+
         Document document = new Document();
         PdfWriter.getInstance(document,
                 new FileOutputStream("Bill_" + memberId + "_" + month + ".pdf"));
 
         document.open();
 
-        document.add(new Paragraph("Khana Khazana Mess"));
-        document.add(new Paragraph("-----------------------------"));
-        document.add(new Paragraph("Member ID: " + memberId));
-        document.add(new Paragraph("Month: " + month));
-        document.add(new Paragraph("Total Amount: ₹" + total));
-        document.add(new Paragraph("-----------------------------"));
-        document.add(new Paragraph("Thank You!"));
+        Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
+        Font normalFont = new Font(Font.FontFamily.HELVETICA, 12);
+
+        document.add(new Paragraph("Khana Khazana Mess", titleFont));
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("Month: " + month, normalFont));
+        document.add(new Paragraph("Member ID: " + memberId, normalFont));
+        document.add(new Paragraph("Name: " + name, normalFont));
+        document.add(new Paragraph("Room No: " + room, normalFont));
+        document.add(new Paragraph(" "));
+
+        PdfPTable table = new PdfPTable(2);
+        table.addCell("Description");
+        table.addCell("Amount (₹)");
+
+        table.addCell("Monthly Total");
+        table.addCell(String.valueOf(total));
+
+        document.add(table);
+
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("Thank You For Dining With Us!", normalFont));
 
         document.close();
+        con.close();
 
-        System.out.println("PDF Bill Generated Successfully!");
+        System.out.println("Professional PDF Bill Generated!");
 
     } catch (Exception e) {
         e.printStackTrace();

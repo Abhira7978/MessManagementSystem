@@ -1,0 +1,29 @@
+import javax.swing.*;
+
+public class DashboardFrame extends JFrame {
+
+    public DashboardFrame() {
+
+        setTitle("Mess Management Dashboard");
+        setSize(400, 300);
+        setLayout(null);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        JLabel label = new JLabel("Welcome to Khana Khazana");
+        label.setBounds(100, 50, 250, 30);
+        add(label);
+
+        JButton addMemberBtn = new JButton("Add Member");
+        addMemberBtn.setBounds(120, 100, 150, 30);
+        add(addMemberBtn);
+
+        JButton exitBtn = new JButton("Exit");
+        exitBtn.setBounds(120, 150, 150, 30);
+        add(exitBtn);
+
+        exitBtn.addActionListener(e -> System.exit(0));
+
+        setVisible(true);
+    }
+}
