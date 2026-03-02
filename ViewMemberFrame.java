@@ -58,6 +58,11 @@ public class ViewMemberFrame extends JFrame {
 
         deleteBtn.addActionListener(e -> deleteSelectedMember());
 
+        JButton exportBtn = new JButton("Export to CSV");
+        add(exportBtn, BorderLayout.EAST);
+
+        exportBtn.addActionListener(e -> exportToCSV());
+
         searchBtn.addActionListener(e -> {
             String keyword = searchField.getText();
             loadMembers(keyword);
@@ -135,4 +140,32 @@ public class ViewMemberFrame extends JFrame {
             }
         }
     }
+
+    private void exportToCSV() {
+
+    try {
+        java.io.FileWriter writer = new java.io.FileWriter("members_export.csv");
+
+        // Write header
+        for (int i = 0; i < model.getColumnCount(); i++) {
+            writer.write(model.getColumnName(i) + ",");
+        }
+        writer.write("\n");
+
+        // Write data
+        for (int i = 0; i < model.getRowCount(); i++) {
+            for (int j = 0; j < model.getColumnCount(); j++) {
+                writer.write(model.getValueAt(i, j).toString() + ",");
+            }
+            writer.write("\n");
+        }
+
+        writer.close();
+
+        JOptionPane.showMessageDialog(this, "Exported Successfully!");
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 }

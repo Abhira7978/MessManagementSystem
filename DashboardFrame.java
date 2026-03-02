@@ -33,6 +33,8 @@ public class DashboardFrame extends JFrame {
         JButton billingBtn = new JButton("Generate Bill");
         JButton paymentBtn = new JButton("Payments");
         JButton dueBtn = new JButton("View Pending Dues");
+        JButton backupBtn = new JButton("Backup Database");
+        JButton chartBtn = new JButton("Revenue Chart");
         JButton exitBtn = new JButton("Exit");
 
         buttonPanel.add(addMemberBtn);
@@ -41,6 +43,8 @@ public class DashboardFrame extends JFrame {
         buttonPanel.add(billingBtn);
         buttonPanel.add(paymentBtn);
         buttonPanel.add(dueBtn);
+        buttonPanel.add(backupBtn);
+        buttonPanel.add(chartBtn);
         buttonPanel.add(exitBtn);
 
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
@@ -54,6 +58,8 @@ public class DashboardFrame extends JFrame {
         billingBtn.addActionListener(e -> new BillingFrame());
         paymentBtn.addActionListener(e -> new PaymentFrame());
         dueBtn.addActionListener(e -> new DueListFrame());
+        backupBtn.addActionListener(e -> backupDatabase());
+        chartBtn.addActionListener(e -> new RevenueChartFrame());
         exitBtn.addActionListener(e -> System.exit(0));
 
         // Stats Panel
@@ -120,6 +126,28 @@ loadDashboardStats(totalMembersLabel, todayAttendanceLabel,
         }
 
         con.close();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+private void backupDatabase() {
+
+    try {
+
+        String backupPath = "mess_backup.sql";
+
+        String command = "mysqldump -u root -pYOUR_PASSWORD mess_management -r " + backupPath;
+
+        Process process = Runtime.getRuntime().exec(command);
+
+        int processComplete = process.waitFor();
+
+        if (processComplete == 0) {
+            JOptionPane.showMessageDialog(this, "Backup Successful!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Backup Failed!");
+        }
 
     } catch (Exception e) {
         e.printStackTrace();
