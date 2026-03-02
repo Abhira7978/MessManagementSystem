@@ -19,8 +19,20 @@ public class DashboardFrame extends JFrame {
         addMemberBtn.setBounds(120, 100, 150, 30);
         add(addMemberBtn);
 
+        JButton viewMemberBtn = new JButton("View Members");
+        viewMemberBtn.setBounds(120, 140, 150, 30);
+        add(viewMemberBtn);
+
+        viewMemberBtn.addActionListener(e -> new ViewMemberFrame());
+
+        JButton attendanceBtn = new JButton("Mark Attendance");
+        attendanceBtn.setBounds(120, 180, 150, 30);
+        add(attendanceBtn);
+
+        attendanceBtn.addActionListener(e -> new AttendanceFrame());
+
         JButton exitBtn = new JButton("Exit");
-        exitBtn.setBounds(120, 150, 150, 30);
+        exitBtn.setBounds(120, 230, 150, 30);
         add(exitBtn);
 
         exitBtn.addActionListener(e -> System.exit(0));
