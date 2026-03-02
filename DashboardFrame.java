@@ -36,6 +36,7 @@ public class DashboardFrame extends JFrame {
         JButton backupBtn = new JButton("Backup Database");
         JButton chartBtn = new JButton("Revenue Chart");
         JButton transactionBtn = new JButton("All Transactions");
+        JButton attendanceChartBtn = new JButton("Attendance Chart");
 
         JButton exitBtn = new JButton("Exit");
 
@@ -48,6 +49,7 @@ public class DashboardFrame extends JFrame {
         buttonPanel.add(backupBtn);
         buttonPanel.add(chartBtn);
         buttonPanel.add(transactionBtn);
+        buttonPanel.add(attendanceChartBtn);
         buttonPanel.add(exitBtn);
 
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
@@ -64,6 +66,7 @@ public class DashboardFrame extends JFrame {
         backupBtn.addActionListener(e -> backupDatabase());
         chartBtn.addActionListener(e -> new RevenueChartFrame());
         transactionBtn.addActionListener(e -> new TransactionFrame());
+        attendanceChartBtn.addActionListener(e -> new AttendanceChartFrame());
         exitBtn.addActionListener(e -> System.exit(0));
 
         // Stats Panel
