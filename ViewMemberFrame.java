@@ -29,6 +29,7 @@ public class ViewMemberFrame extends JFrame {
 
         model = new DefaultTableModel();
         table = new JTable(model);
+        table.setAutoCreateRowSorter(true);
 
         model.addColumn("ID");
         model.addColumn("Name");
